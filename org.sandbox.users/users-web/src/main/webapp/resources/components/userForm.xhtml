@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:ui="http://java.sun.com/jsf/facelets"
+		xmlns:f="http://java.sun.com/jsf/core"
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:composite="http://java.sun.com/jsf/composite">
+
+<!-- INTERFACE -->
+<composite:interface>
+	<composite:attribute name="user"/>
+</composite:interface>
+
+<!-- IMPLEMENTATION -->
+<composite:implementation>
+	<h:panelGrid columns="3" columnClasses="titleCell">
+		<h:outputLabel for="firstName" value="First Name:" />
+		<h:inputText id="firstName" value="#{cc.attrs.user.firstName}" />
+		<h:message for="firstName" errorClass="invalid" />
+
+		<h:outputLabel for="lastName" value="Last Name:" />
+		<h:inputText id="lastName" value="#{cc.attrs.user.lastName}" />
+		<h:message for="lastName" errorClass="invalid" />
+
+		<h:outputLabel for="email" value="Email:" />
+		<h:inputText id="email" value="#{cc.attrs.user.email}" />
+		<h:message for="email" errorClass="invalid" />
+
+		<h:outputLabel for="phoneNumber" value="Phone #:" />
+		<h:inputText id="phoneNumber" value="#{cc.attrs.user.phoneNumber}" />
+		<h:message for="phoneNumber" errorClass="invalid" />
+	</h:panelGrid>
+</composite:implementation>
+</html>

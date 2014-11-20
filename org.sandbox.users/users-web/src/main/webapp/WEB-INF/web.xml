@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	version="3.0">
+
+
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>My private resources</web-resource-name>
+			<description>Resources to be placed under security control.</description>
+			<url-pattern>/private/*</url-pattern>
+			<url-pattern>/rest/*</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>ssouser</role-name>
+		</auth-constraint>
+	</security-constraint>
+
+	<login-config>
+		<auth-method>CLIENT-CERT</auth-method>
+		<realm-name>WebSSO</realm-name>
+	</login-config>
+
+	<security-role>
+		<description>The role allowed to access our content</description>
+		<role-name>ssouser</role-name>
+	</security-role>
+
+<!-- 	<error-page>   -->
+<!-- 		<exception-type>java.lang.Throwable</exception-type>   -->
+<!-- 		<location>/ErrorPage.jsp</location>   -->
+<!-- 	</error-page> -->
+
+	<!-- add a welcome-file-list entry to allow JSF pages to be sued as welcome files -->
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+	</welcome-file-list>
+</web-app>

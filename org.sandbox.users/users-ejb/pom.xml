@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<artifactId>users</artifactId>
+		<groupId>org.sandbox.javaee</groupId>
+		<version>1.0-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>users-ejb</artifactId>
+	<packaging>ejb</packaging>
+
+	<name>users EJB module</name>
+
+	<dependencies>
+
+		<!-- Declare the APIs we depend on and need for compilation. -->
+		<!-- cdi-api, jpa-api, validation-api are used due to javaee-api hasn't javadoc -->
+		<dependency>
+			<groupId>javax.enterprise</groupId>
+			<artifactId>cdi-api</artifactId>
+		</dependency>
+
+		<!-- Import the JSF API, we use provided scope as the API is included in JavaEE6 server -->
+		<dependency>
+			<groupId>javax.faces</groupId>
+			<artifactId>jsf-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- Import the JPA API, we use provided scope as the API is included in JavaEE server -->
+		<dependency>
+			<groupId>org.hibernate.javax.persistence</groupId>
+			<artifactId>hibernate-jpa-2.0-api</artifactId>
+		</dependency>
+
+		<!-- JSR-303 (Bean Validation) Implementation -->
+		<!-- Provides portable constraints such as @Email -->
+		<!-- Hibernate Validator is shipped in JavaEE server -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+		</dependency>
+
+		<!-- Import the EJB 3.1 API, we use provided scope as the API is included in JavaEE server -->
+		<dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-api</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+		</dependency>
+
+		<!-- Test scope dependencies -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+		</dependency>
+
+	</dependencies>
+
+	<build>
+		<plugins>
+
+			<!-- To enable JPA metamodel classes generation for type-safe criteria queries -->
+			<plugin>
+				<groupId>org.bsc.maven</groupId>
+				<artifactId>maven-processor-plugin</artifactId>
+				<version>2.2.4</version>
+				<executions>
+					 <execution>
+						<id>jpa-metamodel</id>
+						<goals>
+							<goal>process</goal>
+						</goals>
+						<phase>generate-sources</phase>
+						<configuration>
+							<processors>
+								<processor>org.eclipse.persistence.internal.jpa.modelgen.CanonicalModelProcessor</processor>
+							</processors>
+							<outputDirectory>${project.build.directory}/generated-sources/annotations</outputDirectory>
+							<compilerArguments>
+								-Aeclipselink.persistencexml=${basedir}/src/main/resources/META-INF/persistence.xml
+							</compilerArguments>
+						</configuration>
+					 </execution>
+				</executions>
+				<dependencies>
+					 <dependency>
+						<groupId>org.eclipse.persistence</groupId>
+						<artifactId>org.eclipse.persistence.jpa.modelgen.processor</artifactId>
+						<version>2.5.2</version>
+					 </dependency>
+				</dependencies>
+			</plugin>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>add-modelgen-generated-sources-directory</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>add-source</goal>
+						</goals>
+						<configuration>
+							<sources>
+								<source>${project.build.directory}/generated-sources/annotations</source>
+							</sources>
+						</configuration>
+					</execution>
+					</executions>
+			</plugin>
+
+			<plugin>
+				<artifactId>maven-ejb-plugin</artifactId>
+				<version>2.3</version>
+				<configuration>
+					<!-- Tell Maven we are using EJB 3.1 -->
+					<ejbVersion>3.1</ejbVersion>
+				</configuration>
+			</plugin>
+
+			<!-- WebLogic Server 12c Maven Plugin -->
+<!-- 			<plugin> -->
+<!-- 				<groupId>com.oracle.weblogic</groupId> -->
+<!-- 				<artifactId>wls-maven-plugin</artifactId> -->
+<!-- 				<executions> -->
+<!-- 					<execution> -->
+<!-- 						<id>wls-appc</id> -->
+<!-- 						<phase>package</phase> -->
+<!-- 						<goals> -->
+<!-- 							<goal>appc</goal> -->
+<!-- 						</goals> -->
+<!-- 						<configuration> -->
+<!-- 							<source>${project.build.directory}/${project.artifactId}-${project.version}.jar</source> -->
+<!-- 						</configuration> -->
+<!-- 					</execution> -->
+<!-- 				</executions> -->
+<!-- 			</plugin> -->
+
+		</plugins>
+	</build>
+
+</project>

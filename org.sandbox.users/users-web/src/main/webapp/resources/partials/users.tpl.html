@@ -1,0 +1,67 @@
+<!-- This is a partial, and is templated by AngularJS -->
+
+	<!-- A list of registered users -->
+	<h2>Users</h2>
+
+<div class="container-fluid">
+<div class="row">
+	<div class="btn-toolbar" style="margin-bottom: 9px">
+		<a class="btn btn-primary btn-xs" href="#/user/new"><i class="glyphicon glyphicon-plus-sign"></i> Add new</a>
+		<!-- The table has a button to manually refresh the values, in case, for example, someone else adds a user -->
+		<button class="btn btn-small btn-default btn-xs" data-ng-click="refresh()" id="refresh"><i class="glyphicon glyphicon-refresh"></i> Refresh</button>
+<!-- 	</div> -->
+<!-- 	<div> -->
+    Search: <input data-ng-model="query">
+    Sort by:
+    <select data-ng-model="orderBy">
+<!--       <option value="['lastName', 'firstName']">By Name</option> -->
+      <option value="lastName">By Name</option>
+      <option value="phoneNumber">By phone</option>
+      <option value="email">By email</option>
+    </select>
+   </div>
+</div>
+<div class="row">
+	<!-- If there are no users registered, instead of showing the table, we show a simple message. -->
+	<em data-ng-show="users.length == 0">No registered users.</em>
+
+	<table data-ng-hide="users.length == 0" class="simpletablestyle">
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>First Name</th>
+				<th>Last Name</th>
+				<th>Email</th>
+				<th>Phone #</th>
+				<th></th>
+				<th></th>
+				<th>REST URL</th>
+			</tr>
+		</thead>
+		<!-- The table is built using the AngularJS repeat function, iterating over the users variable, and ordering by the property specified in the orderBy variable -->
+		<tr data-ng-repeat="user in users | filter:query | orderBy:orderBy">
+			<td><a href='#/user/{{user.id}}'>{{user.id}}</a></td>
+			<td>{{user.firstName}}</td>
+			<td>{{user.lastName}}</td>
+			<td>{{user.email}}</td>
+			<td>{{user.phoneNumber}}</td>
+			<td><a href='javascript:void(0)'><i class='glyphicon glyphicon-remove' data-ng-click="remove(user.id)"></i></a></td>
+			<td><a href='#/user/{{user.id}}'><i class='glyphicon glyphicon-edit'></i></a></td>
+			<td><a href="rest/users/{{user.id}}">/rest/users/{{user.id}}</a>
+			</td>
+	</table>
+
+	<!-- Output the list of error messages if any. -->
+	<ul data-ng-hide="!errorMessages" class="invalid">
+		<li data-ng-repeat="message in errorMessages">{{message}}</li>
+	</ul>
+
+
+</div>
+<div class="row" style="margin-top: 9px">
+	REST URL for all users: <a href="rest/users">/rest/users</a>
+</div>
+</div>
+<!-- <pre>orderBy = {{orderBy}}</pre> -->
+<!-- <pre>userId = {{userId}}</pre> -->
+<!-- <pre>users = {{users | json}}</pre> -->

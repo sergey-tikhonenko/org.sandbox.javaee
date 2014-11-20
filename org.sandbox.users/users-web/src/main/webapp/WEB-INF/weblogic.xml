@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<weblogic-web-app
+	xmlns="http://xmlns.oracle.com/weblogic/weblogic-web-app"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.oracle.com/weblogic/weblogic-web-app http://xmlns.oracle.com/weblogic/weblogic-web-app/1.4/weblogic-web-app.xsd">
+
+<!-- 	<weblogic-version>12.1.2</weblogic-version> -->
+
+	<security-role-assignment>
+		<role-name>ssouser</role-name>
+		<principal-name>ssouser</principal-name>
+	</security-role-assignment>
+
+	<container-descriptor>
+<!-- 		<prefer-web-inf-classes>true</prefer-web-inf-classes> -->
+		<prefer-application-packages>
+			<package-name>com.fasterxml.jackson.*</package-name>
+			<package-name>com.google.common.*</package-name>
+		</prefer-application-packages>
+
+		<prefer-application-resources>
+			<resource-name>com.fasterxml.jackson.*</resource-name>
+			<resource-name>com.google.common.*</resource-name>
+		</prefer-application-resources>
+	</container-descriptor>
+</weblogic-web-app>

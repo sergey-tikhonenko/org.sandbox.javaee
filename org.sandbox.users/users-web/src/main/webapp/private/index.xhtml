@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition template="/WEB-INF/templates/default.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:my="http://java.sun.com/jsf/composite/components">
+
+	<ui:define name="content">
+		<h1>Welcome to Sample User Management Application!</h1>
+
+		<h:form id="reg">
+			<h2>Register User (Bean Validation example)</h2>
+			<p>Enforces annotation-based constraints defined on the model class.</p>
+
+			<my:userForm id="userForm" user="#{newUser}"/>
+			<p>
+				<h:commandButton id="register" action="#{userController.register}" value="Register" />
+				<h:outputText value=" Registered!"
+						rendered="#{facesContext.postback and empty facesContext.messageList}"
+						style="color: green;" />
+			</p>
+		</h:form>
+
+		<h2>Users</h2>
+		<h:panelGroup rendered="#{empty users}">
+			<em>No registered users.</em>
+		</h:panelGroup>
+		<h:form rendered="#{not empty users}">
+			<h:dataTable var="_user" value="#{users}">
+				<h:column>
+					<f:facet name="header">Id</f:facet>
+						 #{_user.id}
+					</h:column>
+				<h:column>
+					<f:facet name="header">Name</f:facet>
+						 #{_user.name}
+					</h:column>
+				<h:column>
+					<f:facet name="header">Email</f:facet>
+						 #{_user.email}
+					</h:column>
+				<h:column>
+					<f:facet name="header">Phone #</f:facet>
+						 #{_user.phoneNumber}
+					</h:column>
+				<h:column>
+					<f:facet name="header">Action</f:facet>
+						 <h:commandLink action="#{userController.delete(_user.id)}">Delete</h:commandLink>
+					</h:column>
+				<h:column>
+					<f:facet name="header">REST URL</f:facet>
+					<a href="#{request.contextPath}/rest/users/#{_user.id}">/rest/users/#{_user.id}</a>
+					</h:column>
+				<f:facet name="footer">
+						 REST URL for all users: <a href="#{request.contextPath}/rest/users">/rest/users</a>
+				</f:facet>
+			</h:dataTable>
+		</h:form>
+
+	</ui:define>
+</ui:composition>

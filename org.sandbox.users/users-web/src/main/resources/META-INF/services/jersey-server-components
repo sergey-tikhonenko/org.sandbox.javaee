@@ -1,0 +1,5 @@
+org.sandbox.javaee.rest.conf.JacksonConfiguration
+com.fasterxml.jackson.jaxrs.base.JsonMappingExceptionMapper
+com.fasterxml.jackson.jaxrs.base.JsonParseExceptionMapper
+org.sandbox.javaee.rest.conf.EJBAccessExceptionMapper
+org.sandbox.javaee.rest.conf.ConstraintViolationExceptionMapper
