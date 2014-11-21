@@ -1,0 +1,12 @@
+target/
+bin
+.metadata
+.settings/
+.project
+.classpath
+.recommenders
+*.zip
+jboss
+glassfish2weblogic-master
+jaxrs2-client-tutorial
+org.sandbox.security

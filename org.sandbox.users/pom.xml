@@ -112,7 +112,7 @@
 				<groupId>javax.ws.rs</groupId>
 				<artifactId>jsr311-api</artifactId>
 				<scope>provided</scope>
-				<version>1.1</version>
+				<version>1.1.1</version>
 			</dependency>
 			<!-- Weblogic 12 has jersey module of v1.9 -->
 			<dependency>
